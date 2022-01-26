@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
 //https://stackoverflow.com/questions/7318632/java-lang-illegalstateexception-getreader-has-already-been-called-for-this-re
-//@Order(Ordered.LOWEST_PRECEDENCE)
 public class MyFilter implements Filter {
     protected static final Logger log = LogManager.getLogger();
 
