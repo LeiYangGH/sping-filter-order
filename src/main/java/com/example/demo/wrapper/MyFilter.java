@@ -1,15 +1,15 @@
 package com.example.demo.wrapper;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.web.util.ContentCachingRequestWrapper;
 
 import javax.servlet.*;
-import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletRequestWrapper;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+//https://stackoverflow.com/questions/7318632/java-lang-illegalstateexception-getreader-has-already-been-called-for-this-re
 public class MyFilter implements Filter {
     protected static final Logger log = LogManager.getLogger();
 
@@ -20,13 +20,9 @@ public class MyFilter implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         final HttpServletRequest httpServletRequest = (HttpServletRequest) request;
-        final HttpServletResponse httpServletResponse = (HttpServletResponse) response;
-
-        final HttpServletRequestWrapper requestWrapper = new MyHttpServletRequestWrapper(httpServletRequest);
-        final String requestBody = requestWrapper.toString();
+        ContentCachingRequestWrapper cachedRequest = new ContentCachingRequestWrapper(httpServletRequest);
+        chain.doFilter(cachedRequest, response);
+        String requestBody = IOUtils.toString(cachedRequest.getContentAsByteArray(), cachedRequest.getCharacterEncoding());
         log.info(requestBody);
-        chain.doFilter(request, response);
     }
-
-
 }
