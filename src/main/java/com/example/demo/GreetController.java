@@ -2,10 +2,8 @@ package com.example.demo;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class GreetController {
@@ -15,5 +13,11 @@ public class GreetController {
     public String greet(@RequestBody final WelcomeMessage msg) {
         log.info(msg);
         return "Hello " + msg.from;
+    }
+
+    @ExceptionHandler({HttpMessageNotReadableException.class})
+    public String addStudent(HttpMessageNotReadableException e) {
+        log.error(e.getMessage());
+        return "greeting from @ExceptionHandler";
     }
 }

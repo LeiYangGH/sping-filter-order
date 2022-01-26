@@ -17,12 +17,23 @@ public class MyFilter implements Filter {
     public void init(FilterConfig filterConfig) throws ServletException {
     }
 
+//    @Override
+//    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+//        final HttpServletRequest httpServletRequest = (HttpServletRequest) request;
+//        ContentCachingRequestWrapper cachedRequest = new ContentCachingRequestWrapper(httpServletRequest);
+//        chain.doFilter(cachedRequest, response);
+//        String requestBody = IOUtils.toString(cachedRequest.getContentAsByteArray(), cachedRequest.getCharacterEncoding());
+//        log.info(requestBody);
+//    }
+
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         final HttpServletRequest httpServletRequest = (HttpServletRequest) request;
         ContentCachingRequestWrapper cachedRequest = new ContentCachingRequestWrapper(httpServletRequest);
-        chain.doFilter(cachedRequest, response);
-        String requestBody = IOUtils.toString(cachedRequest.getContentAsByteArray(), cachedRequest.getCharacterEncoding());
+//        String requestBody = IOUtils.toString(cachedRequest.getContentAsByteArray(), cachedRequest.getCharacterEncoding());
+        String requestBody = IOUtils.toString(cachedRequest.getInputStream(), cachedRequest.getCharacterEncoding());
+//        String requestBody = IOUtils.toString(cachedRequest.getReader());
         log.info(requestBody);
+        chain.doFilter(cachedRequest, response);
     }
 }
