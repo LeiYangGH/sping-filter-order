@@ -9,11 +9,11 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.filter.CommonsRequestLoggingFilter;
 
 //https://www.baeldung.com/spring-http-logging
-@Configuration
+//@Configuration
 public class RequestLoggingFilterConfig {
   protected static final Logger log = LogManager.getLogger();
 
-  @Bean
+//  @Bean
   public MyRequestLoggingFilter logFilter() {
     return new MyRequestLoggingFilter();
   }

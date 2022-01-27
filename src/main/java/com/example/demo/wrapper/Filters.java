@@ -5,10 +5,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 //https://stackoverflow.com/questions/43859654/spring-boot-custom-filter-is-not-working
-//@Configuration //not register since trying CommonsRequestLoggingFilter
+@Configuration //not register since trying CommonsRequestLoggingFilter
 public class Filters {
 
-  //    @Bean
+      @Bean
   public FilterRegistrationBean myFilterBean() {
     FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean();
     filterRegistrationBean.setFilter(new MyFilter());
