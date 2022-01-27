@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+  <include resource="org/springframework/boot/logging/logback/base.xml"/>
+
+  <springProfile name="production, info, default">
+  <logger name="org.springframework.web.filter.CommonsRequestLoggingFilter">
+    <level value="DEBUG" />
+  </logger>
+    <logger name="com.example.demo.commonlog.MyRequestLoggingFilter">
+      <level value="DEBUG" />
+    </logger>
+  <root level="INFO">
+    <appender-ref ref="CONSOLE" />
+  </root>
+</springProfile>
+
+</configuration>
